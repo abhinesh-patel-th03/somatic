@@ -45,7 +45,15 @@ const authLimiter = rateLimit({
 
 app.use('/api/auth', authLimiter);
 
-// ---- Health check ----
+// ---- Root + health check ----
+
+app.get('/', (req, res) => {
+  sendSuccess(res, {
+    status: 'ok',
+    message: 'SOMATIC backend is running',
+    env: env.NODE_ENV,
+  });
+});
 
 app.get('/health', (req, res) => {
   sendSuccess(res, {
